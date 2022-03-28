@@ -1,9 +1,19 @@
 package com.namish.javacoachapi.core.models.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CuestionarioDTO {
+import lombok.Data;
+
+@Data
+public class CuestionarioDTO implements Serializable{
 	
-	private List<PreguntaDTO> cuestionario;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Long idConcepto;
+	private String nombreConcepto;
+	private List<PreguntaDTO> preguntas;
 
 }
