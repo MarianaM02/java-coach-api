@@ -1,11 +1,12 @@
-package com.namish.javacoachapi.core.models.dto;
+package com.namish.javacoachapi.core.models.dto.catalogo;
 
 import java.io.Serializable;
 import java.util.List;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
 public class PreguntaDTO implements Serializable{
 	/**
 	 * 
@@ -15,6 +16,5 @@ public class PreguntaDTO implements Serializable{
 	private Long id;
 	private String pregunta;
 	private List<RespuestaDTO> respuestas;
-	
 	
 }

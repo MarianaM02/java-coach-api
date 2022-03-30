@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.namish.javacoachapi.core.controller.ICuestionarioController;
-import com.namish.javacoachapi.core.models.dto.ConceptoDTO;
-import com.namish.javacoachapi.core.models.dto.CuestionarioDTO;
+import com.namish.javacoachapi.core.models.dto.catalogo.ConceptoDTO;
+import com.namish.javacoachapi.core.models.dto.catalogo.CuestionarioDTO;
 
 @RestController
 @RequestMapping("/cuestionario")

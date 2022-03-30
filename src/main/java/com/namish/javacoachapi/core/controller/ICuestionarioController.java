@@ -2,8 +2,8 @@ package com.namish.javacoachapi.core.controller;
 
 import org.springframework.http.ResponseEntity;
 
-import com.namish.javacoachapi.core.models.dto.ConceptoDTO;
-import com.namish.javacoachapi.core.models.dto.CuestionarioDTO;
+import com.namish.javacoachapi.core.models.dto.catalogo.ConceptoDTO;
+import com.namish.javacoachapi.core.models.dto.catalogo.CuestionarioDTO;
 
 public interface ICuestionarioController {
 

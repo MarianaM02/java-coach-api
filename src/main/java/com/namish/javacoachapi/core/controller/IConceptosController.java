@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.namish.javacoachapi.core.models.dto.ConceptoDTO;
+import com.namish.javacoachapi.core.models.dto.catalogo.ConceptoDTO;
 
 public interface IConceptosController {
 

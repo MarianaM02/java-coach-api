@@ -1,11 +1,12 @@
-package com.namish.javacoachapi.core.models.dto;
+package com.namish.javacoachapi.core.models.dto.catalogo;
 
 import java.io.Serializable;
 import java.util.List;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
 public class CatalogoDTO implements Serializable {
 
 	/**
