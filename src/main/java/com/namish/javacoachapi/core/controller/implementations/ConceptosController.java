@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.namish.javacoachapi.core.controller.IConceptosController;
 import com.namish.javacoachapi.core.models.dto.catalogo.ConceptoDTO;
+import com.namish.javacoachapi.core.models.dto.create.ConceptoCrearDTO;
 import com.namish.javacoachapi.core.services.IConceptoService;
 
 @RestController
@@ -40,8 +41,8 @@ public class ConceptosController implements IConceptosController{
 
 	@Override
 	@PostMapping("/crear")
-	public ResponseEntity<ConceptoDTO> crearConcepto(@RequestBody ConceptoDTO conceptoNuevo) {
-		return null;
+	public ResponseEntity<ConceptoDTO> crearConcepto(@RequestBody ConceptoCrearDTO conceptoNuevo) {
+		return new ResponseEntity<ConceptoDTO>(conceptoServ.crearConcepto(conceptoNuevo), HttpStatus.CREATED);
 	}
 
 	@Override

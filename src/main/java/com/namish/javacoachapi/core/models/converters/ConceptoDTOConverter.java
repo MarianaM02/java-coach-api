@@ -27,7 +27,7 @@ public class ConceptoDTOConverter {
 		Concepto concepto = new Concepto();
 		concepto.setNombre(conceptoDTO.getNombre());
 		concepto.setContenido(conceptoDTO.getContenido());
-		concepto.setCapitulo(capituloRepo.findById(conceptoDTO.getCapituloId()).get());
+		concepto.setCapitulo(capituloRepo.getById(conceptoDTO.getCapituloId()));
 		return concepto;
 	}
 	

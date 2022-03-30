@@ -5,6 +5,8 @@ import java.util.List;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,32 +28,33 @@ public class NivelController implements INivelController {
 
 	@Override
 	@GetMapping("/{id}")
-	public NivelDTO traerNivel(@PathParam(value = "id") Long id) {
-		return nivelServ.traerNivel(id);
+	public ResponseEntity<NivelDTO> traerNivel(@PathParam(value = "id") Long id) {
+		return new ResponseEntity<NivelDTO>(nivelServ.traerNivel(id), HttpStatus.FOUND);
 	}
 	
 	@Override
 	@GetMapping("/todos")
-	public List<NivelDTO> traerTodosLosNiveles() {
-		return nivelServ.traerTodosLosNiveles();
+	public ResponseEntity<List<NivelDTO>> traerTodosLosNiveles() {
+		return new ResponseEntity<List<NivelDTO>>(nivelServ.traerTodosLosNiveles(), HttpStatus.OK);
 	}
 
 	@Override
 	@PostMapping("/crear")
-	public NivelDTO crearNivel(@RequestBody NivelDTO nivelNuevo) {
-		return nivelServ.crearNivel(nivelNuevo);
+	public ResponseEntity<NivelDTO> crearNivel(@RequestBody NivelDTO nivelNuevo) {
+		return new ResponseEntity<NivelDTO>(nivelServ.crearNivel(nivelNuevo), HttpStatus.CREATED);
 	}
 
 	@Override
 	@PutMapping("/actualizar")
-	public NivelDTO actualizarNivel(@RequestBody NivelDTO nivelActualizado) {
-		return nivelServ.actualizarNivel(nivelActualizado);
+	public ResponseEntity<NivelDTO> actualizarNivel(@RequestBody NivelDTO nivelActualizado) {
+		return new ResponseEntity<NivelDTO>(nivelServ.actualizarNivel(nivelActualizado), HttpStatus.OK);
 	}
 
 	@Override
 	@DeleteMapping("/eliminar/{id}")
-	public void eliminarNivel(@PathParam(value = "id")Long id) {
+	public ResponseEntity<?> eliminarNivel(@PathParam(value = "id")Long id) {
 		nivelServ.eliminarNivel(id);
+		return new ResponseEntity<String>("Nivel Eliminado", HttpStatus.NO_CONTENT);
 	}
 
 

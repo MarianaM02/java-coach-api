@@ -1,6 +1,7 @@
 package com.namish.javacoachapi.core.models.entities;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +22,7 @@ public class Concepto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
+	@Column(columnDefinition = "TEXT")
 	private String contenido;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Capitulo capitulo;

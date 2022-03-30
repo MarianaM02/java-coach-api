@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.namish.javacoachapi.core.models.dto.catalogo.ConceptoDTO;
+import com.namish.javacoachapi.core.models.dto.create.ConceptoCrearDTO;
 
 public interface IConceptosController {
 
@@ -29,7 +30,7 @@ public interface IConceptosController {
 	 * @param concepto nuevo
 	 * @return concepto creado
 	 */
-	ResponseEntity<ConceptoDTO> crearConcepto(ConceptoDTO conceptoNuevo);
+	ResponseEntity<ConceptoDTO> crearConcepto(ConceptoCrearDTO conceptoNuevo);
 
 	/**
 	 * Elimina un concepto

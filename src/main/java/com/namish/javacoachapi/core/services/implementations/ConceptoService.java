@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import com.namish.javacoachapi.core.models.converters.ConceptoDTOConverter;
 import com.namish.javacoachapi.core.models.dto.catalogo.ConceptoDTO;
 import com.namish.javacoachapi.core.models.dto.create.ConceptoCrearDTO;
+import com.namish.javacoachapi.core.models.entities.Capitulo;
 import com.namish.javacoachapi.core.models.entities.Concepto;
+import com.namish.javacoachapi.core.repository.ICapituloRepository;
 import com.namish.javacoachapi.core.repository.IConceptoRepository;
 import com.namish.javacoachapi.core.services.IConceptoService;
 
@@ -18,6 +20,8 @@ public class ConceptoService implements IConceptoService {
 
 	@Autowired
 	IConceptoRepository conceptoRepo;
+	@Autowired
+	ICapituloRepository capituloRepo;
 	@Autowired
 	ConceptoDTOConverter conceptoDTOConverter;
 
@@ -29,8 +33,8 @@ public class ConceptoService implements IConceptoService {
 
 	@Override
 	public List<ConceptoDTO> traerTodosLosConceptos() {
-		List<Concepto> conceptos = conceptoRepo.findAll();
-		List<ConceptoDTO> conceptosDto = conceptos.stream()
+		List<ConceptoDTO> conceptosDto = conceptoRepo.findAll()
+				.stream()
 				.map(conceptoDTOConverter::convertirEntityADTO)
 				.collect(Collectors.toList());
 		return conceptosDto;
@@ -47,14 +51,19 @@ public class ConceptoService implements IConceptoService {
 		conceptoRepo.deleteById(id);
 	}
 
-	@Override
-	public ConceptoDTO actualizarConcepto(ConceptoDTO conceptoActualizado) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<ConceptoDTO> traerConceptosPorCapitulo(Long capituloId) {
+		Capitulo capitulo = capituloRepo.findById(capituloId).get();
+		List<ConceptoDTO> conceptosDto = conceptoRepo.findByCapitulo(capitulo)
+				.stream()
+				.map(conceptoDTOConverter::convertirEntityADTO)
+				.collect(Collectors.toList());
+		return conceptosDto;
+	}
+
+	@Override
+	public ConceptoDTO actualizarConcepto(ConceptoDTO conceptoActualizado) {
 		// TODO Auto-generated method stub
 		return null;
 	}
