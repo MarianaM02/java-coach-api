@@ -18,9 +18,15 @@ public class CuestionarioController implements ICuestionarioController{
 	IPreguntaService preguntaServ;
 	
 	@Override
-	@GetMapping("/{idConcepto}")
-	public ResponseEntity<?> traerCuestionarioPorConcepto(Long idConcepto) {
-		return ResponseEntity.ok().body(preguntaServ.crearCuestionario(idConcepto));
+	@GetMapping("/concepto/{idConcepto}")
+	public ResponseEntity<?> traerCuestionarioPorConcepto(@PathVariable Long idConcepto) {
+		return ResponseEntity.ok().body(preguntaServ.crearCuestionarioConcepto(idConcepto));
+	}
+	
+	@Override
+	@GetMapping("/capitulo/{idCapitulo}")
+	public ResponseEntity<?> traerCuestionarioPorCapitulo(@PathVariable Long idCapitulo) {
+		return ResponseEntity.ok().body(preguntaServ.crearCuestionarioCapitulo(idCapitulo));
 	}
 
 	@Override
@@ -28,6 +34,5 @@ public class CuestionarioController implements ICuestionarioController{
 	public ResponseEntity<?> validarRespuesta(@PathVariable Long idRespuesta, @PathVariable Long idPregunta) {
 		return ResponseEntity.ok().body(preguntaServ.validarRespuesta(idRespuesta, idPregunta));
 	}
-
 
 }

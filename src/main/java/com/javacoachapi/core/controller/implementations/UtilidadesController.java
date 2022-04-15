@@ -12,14 +12,14 @@ public class UtilidadesController implements IUtilidadesController{
 	@Override
 	@GetMapping("/enviar/concepto")
 	public ResponseEntity<?> enviarConceptoAleatorioMail(String mail) {
-		// TODO Auto-generated method stub
+		// TODO Enviar concepto aleatorio por mail
 		return null;
 	}
 
 	@Override
 	@GetMapping("/generar/reporte")
 	public ResponseEntity<?> generarReporte() {
-		// TODO Auto-generated method stub
+		// TODO!! Generar reporte en PDF
 		return null;
 	}
 

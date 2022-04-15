@@ -14,6 +14,6 @@ public interface INivelService {
 	
 	boolean eliminarNivel(Long id);
 	
-	NivelDTO actualizarNivel(NivelDTO nivelActualizado, Long id);
+	NivelDTO actualizarNivel(NivelDTO nivelActualizado, Long id) throws Exception;
 
 }

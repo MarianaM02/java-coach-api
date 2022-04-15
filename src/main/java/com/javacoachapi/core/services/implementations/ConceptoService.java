@@ -27,6 +27,7 @@ public class ConceptoService implements IConceptoService {
 
 	@Override
 	public ConceptoDTO traerConcepto(Long id) {
+		// TODO orElseThrows() Exeption no encontrado
 		Concepto concepto = conceptoRepo.findById(id).orElse(null);
 		return conceptoDTOConverter.convertirEntityADTO(concepto);
 	}
@@ -42,12 +43,14 @@ public class ConceptoService implements IConceptoService {
 
 	@Override
 	public ConceptoDTO crearConcepto(ConceptoCrearDTO conceptoNuevo) {
+		// TODO orElseThrows() Exeption no creado
 		Concepto concepto = conceptoDTOConverter.convertirDTOAEntity(conceptoNuevo);
 		return conceptoDTOConverter.convertirEntityADTO(conceptoRepo.save(concepto));
 	}
 
 	@Override
 	public boolean eliminarConcepto(Long id) {
+		// TODO orElseThrows() Exeption no encontrado
 		if (conceptoRepo.existsById(id)) {
 			conceptoRepo.deleteById(id);
 			return true;			
@@ -58,6 +61,7 @@ public class ConceptoService implements IConceptoService {
 
 	@Override
 	public List<ConceptoDTO> traerConceptosPorCapitulo(Long capituloId) {
+		// TODO orElseThrows() Exeption no encontrado
 		Capitulo capitulo = capituloRepo.findById(capituloId).get();
 		List<ConceptoDTO> conceptosDto = conceptoRepo.findByCapitulo(capitulo)
 				.stream()
@@ -68,10 +72,14 @@ public class ConceptoService implements IConceptoService {
 
 	@Override
 	public ConceptoDTO actualizarConcepto(ConceptoCrearDTO conceptoActualizado, Long id) {
+		// TODO orElseThrows() Exeption no encontrado
 		if (conceptoRepo.existsById(id)) {
-			return conceptoDTOConverter.convertirEntityADTO(
-							conceptoRepo.save(
-									conceptoDTOConverter.convertirDTOAEntity(conceptoActualizado)));
+			Concepto concepto = conceptoRepo.findById(id).get();
+			concepto.setNombre(conceptoActualizado.getNombre());
+			concepto.setContenido(conceptoActualizado.getContenido());
+			concepto.setCapitulo(capituloRepo.findById(conceptoActualizado.getCapituloId()).get());
+			conceptoRepo.save(concepto);
+			return conceptoDTOConverter.convertirEntityADTO(concepto);
 		}
 		return null;
 	}

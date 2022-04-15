@@ -34,6 +34,7 @@ public class CapituloDTOConverter {
 	
 	public Capitulo convertirDTOAEntity(CapituloCrearDTO capituloDto) {
 		Capitulo capitulo = new Capitulo();
+		capitulo.setId(capituloDto.getId());
 		capitulo.setNumero(capituloDto.getNumero());
 		capitulo.setNombre(capituloDto.getNombre());
 		capitulo.setNivel(nivelRepo.getById(capituloDto.getNivelId()));

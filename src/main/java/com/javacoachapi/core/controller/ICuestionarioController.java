@@ -23,4 +23,6 @@ public interface ICuestionarioController {
 	 */
 	ResponseEntity<?> validarRespuesta(Long idRespuesta, Long idPregunta);
 
+	ResponseEntity<?> traerCuestionarioPorCapitulo(Long idConcepto);
+
 }

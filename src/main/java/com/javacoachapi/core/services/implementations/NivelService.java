@@ -50,12 +50,16 @@ public class NivelService implements INivelService {
 	}
 
 	@Override
-	public NivelDTO actualizarNivel(NivelDTO nivelActualizado, Long id) {
+	public NivelDTO actualizarNivel(NivelDTO nivelActualizado, Long id) throws Exception {
+		// TODO orElseThrows() Exeption no encontrado
 		if (nivelRepo.existsById(id)) {
-			return nivelDtoConverter
-					.convertirEntityADTO(nivelRepo.save(nivelDtoConverter.convertirDTOAEntity(nivelActualizado)));
+			Nivel nivel = nivelRepo.findById(id).get();
+			nivel.setNombre(nivelActualizado.getNombre());
+			nivelRepo.save(nivel);
+			return nivelDtoConverter.convertirEntityADTO(nivel);
 		}
 		return null;
+
 	}
 
 }

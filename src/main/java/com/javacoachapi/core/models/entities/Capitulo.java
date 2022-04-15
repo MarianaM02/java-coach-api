@@ -1,6 +1,5 @@
 package com.javacoachapi.core.models.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +21,7 @@ public class Capitulo {
 	private Long id;
 	private Integer numero;
 	private String nombre;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Nivel nivel;
 
 }

@@ -23,6 +23,7 @@ public class RespuestaService implements IRespuestaService {
 
 	@Override
 	public RespuestaDTO traerRespuesta(Long id) {
+		// TODO orElseThrows() Exeption no encontrado
 		return respuestaDtoConverter.convertirEntityADTO(respuestaRepo.findById(id).orElse(null));
 	}
 
@@ -36,12 +37,14 @@ public class RespuestaService implements IRespuestaService {
 
 	@Override
 	public RespuestaDTO crearRespuesta(RespuestaCrearDTO respuestaNueva) {
+		// TODO orElseThrows() Exeption no creado
 		Respuesta respuesta = respuestaDtoConverter.convertirDTOAEntity(respuestaNueva);
 		return respuestaDtoConverter.convertirEntityADTO(respuestaRepo.save(respuesta));
 	}
 
 	@Override
 	public boolean eliminarRespuesta(Long id) {
+		// TODO orElseThrows() Exeption no encontrado
 		if (respuestaRepo.existsById(id)) {
 			respuestaRepo.deleteById(id);
 			return true;
@@ -51,9 +54,13 @@ public class RespuestaService implements IRespuestaService {
 
 	@Override
 	public RespuestaDTO actualizarRespuesta(RespuestaCrearDTO respuestaActualizada, Long id) {
+		// TODO orElseThrows() Exeption no encontrado
 		if (respuestaRepo.existsById(id)) {
-			return respuestaDtoConverter.convertirEntityADTO(
-					respuestaRepo.save(respuestaDtoConverter.convertirDTOAEntity(respuestaActualizada)));
+			Respuesta respuesta = respuestaRepo.findById(id).get();
+			respuesta.setRespuesta(respuestaActualizada.getRespuesta());
+			respuesta.setValida(respuestaActualizada.getValida());
+			respuestaRepo.save(respuesta);
+			return respuestaDtoConverter.convertirEntityADTO(respuesta);
 		}
 		return null;
 	}

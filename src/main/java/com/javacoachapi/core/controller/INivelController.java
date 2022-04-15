@@ -12,7 +12,7 @@ public interface INivelController {
 
 	ResponseEntity<?> crearNivel(NivelDTO nivelNuevo);
 	
-	ResponseEntity<?> actualizarNivel(NivelDTO nivelActualizado, Long id);
+	ResponseEntity<?> actualizarNivel(NivelDTO nivelActualizado, Long id) throws Exception;
 	
 	ResponseEntity<?> eliminarNivel(Long id);
 	

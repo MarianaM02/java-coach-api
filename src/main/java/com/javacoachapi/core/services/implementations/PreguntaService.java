@@ -14,6 +14,7 @@ import com.javacoachapi.core.models.dto.catalogo.RespuestaDTO;
 import com.javacoachapi.core.models.dto.create.PreguntaCrearDTO;
 import com.javacoachapi.core.models.entities.Pregunta;
 import com.javacoachapi.core.models.entities.Respuesta;
+import com.javacoachapi.core.repository.IConceptoRepository;
 import com.javacoachapi.core.repository.IPreguntaRepository;
 import com.javacoachapi.core.repository.IRespuestaRepository;
 import com.javacoachapi.core.services.IConceptoService;
@@ -32,6 +33,8 @@ public class PreguntaService implements IPreguntaService{
 	RespuestaDTOConverter respuestaDtoConverter;
 	@Autowired
 	IConceptoService conceptoServ;
+	@Autowired
+	IConceptoRepository conceptoRepo;
 	
 	@Override
 	public PreguntaDTO traerPregunta(Long id) {
@@ -68,13 +71,20 @@ public class PreguntaService implements IPreguntaService{
 
 	@Override
 	public PreguntaDTO actualizarPregunta(PreguntaCrearDTO preguntaActualizada, Long id) {
-		if (preguntaRepo.existsById(id)) {
-			return preguntaDtoConverter.convertirEntityADTO(
-					preguntaRepo.save(
-							preguntaDtoConverter.convertirDTOAEntity(preguntaActualizada)));
-		}
-		// TODO Exception No encontrada
-		return null;
+		// TODO orElseThrows() Exeption no encontrado
+		// TODO Al actualizar, agrega preguntas nuevas en lugar de guardar en el mismo registro
+				if (preguntaRepo.existsById(id)) {
+					Pregunta pregunta = preguntaRepo.findById(id).get();
+					pregunta.setPregunta(preguntaActualizada.getPregunta());
+					pregunta.setRespuestas(preguntaActualizada.getRespuestas()
+							.stream()
+							.map(respuestaDtoConverter::convertirDTOAEntity)
+							.collect(Collectors.toList()));
+					pregunta.setConcepto(conceptoRepo.findById(preguntaActualizada.getConceptoId()).get());
+					preguntaRepo.save(pregunta);
+					return preguntaDtoConverter.convertirEntityADTO(pregunta);
+				}
+				return null;
 	}
 
 	@Override
@@ -107,17 +117,25 @@ public class PreguntaService implements IPreguntaService{
 		if (listaRespuestas.contains(respuesta)) {
 			return respuesta.getValida();
 		}
-		// TODO respuesta no corresponde a esa pregunta
+		// TODO Exception respuesta no corresponde a esa pregunta
 		return false;
 	}
 
 	@Override
-	public CuestionarioDTO crearCuestionario(Long idConcepto) {
+	public CuestionarioDTO crearCuestionarioConcepto(Long idConcepto) {
 		CuestionarioDTO cuestionario = new CuestionarioDTO();
 		cuestionario.setIdConcepto(idConcepto);
 		cuestionario.setNombreConcepto(
 				conceptoServ.traerConcepto(idConcepto).getNombre());
 		cuestionario.setPreguntas(this.traerPreguntasPorConcepto(idConcepto));
+		return cuestionario;
+	}
+
+	// TODO Cuestionario por capitulo
+	@Override
+	public CuestionarioDTO crearCuestionarioCapitulo(Long idCapitulo) {
+		CuestionarioDTO cuestionario = new CuestionarioDTO();
+		// 
 		return cuestionario;
 	}
 

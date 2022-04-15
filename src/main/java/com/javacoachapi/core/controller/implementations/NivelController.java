@@ -43,7 +43,7 @@ public class NivelController implements INivelController {
 
 	@Override
 	@PutMapping("/actualizar/{id}")
-	public ResponseEntity<?> actualizarNivel(@RequestBody NivelDTO nivelActualizado, @PathVariable Long id) {
+	public ResponseEntity<?> actualizarNivel(@RequestBody NivelDTO nivelActualizado, @PathVariable Long id) throws Exception {
 		return ResponseEntity.ok().body(nivelServ.actualizarNivel(nivelActualizado, id));
 	}
 

@@ -28,6 +28,8 @@ public interface IPreguntaService {
 	
 	Boolean validarRespuesta(Long idRespuesta, Long idPregunta);
 	
-	CuestionarioDTO crearCuestionario(Long idConcepto);
+	CuestionarioDTO crearCuestionarioConcepto(Long idConcepto);
+	
+	CuestionarioDTO crearCuestionarioCapitulo(Long idCapitulo);
 	
 }
