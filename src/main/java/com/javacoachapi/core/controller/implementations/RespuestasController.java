@@ -26,32 +26,32 @@ public class RespuestasController implements IRespuestasController {
 	@Override
 	@GetMapping("/todos")
 	public ResponseEntity<?> traerRespuestas() {
-		return ResponseEntity.ok().body(respuestaServ.traerTodasLasRespuestas());
+		return ResponseEntity.ok().body(respuestaServ.traerTodos());
 	}
 
 	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<?> traerRespuesta(@PathVariable Long id) {
-		return ResponseEntity.ok().body(respuestaServ.traerRespuesta(id));
+		return ResponseEntity.ok().body(respuestaServ.traerUno(id));
 	}
 
 	@Override
 	@PostMapping("/crear")
 	public ResponseEntity<?> crearRespuesta(@RequestBody RespuestaCrearDTO respuestaNueva) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(respuestaServ.crearRespuesta(respuestaNueva));
+		return ResponseEntity.status(HttpStatus.CREATED).body(respuestaServ.crear(respuestaNueva));
 	}
 
 	@Override
 	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> eliminarRespuesta(@PathVariable Long id) {
-		respuestaServ.eliminarRespuesta(id);
+		respuestaServ.eliminar(id);
 		return ResponseEntity.noContent().build();
 	}
 
 	@Override
 	@PutMapping("/actualizar/{id}")
 	public ResponseEntity<?> actualizarRespuesta(@RequestBody RespuestaCrearDTO respuestaActualizada, @PathVariable Long id) {
-		return ResponseEntity.ok().body(respuestaServ.actualizarRespuesta(respuestaActualizada, id));
+		return ResponseEntity.ok().body(respuestaServ.actualizar(respuestaActualizada, id));
 	}
 
 }

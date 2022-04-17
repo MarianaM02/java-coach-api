@@ -7,15 +7,15 @@ import com.javacoachapi.core.models.dto.create.ConceptoCrearDTO;
 
 public interface IConceptoService {
 
-	ConceptoDTO traerConcepto(Long id);
+	ConceptoDTO traerUno(Long id);
 	
-	List<ConceptoDTO> traerTodosLosConceptos();
+	List<ConceptoDTO> traerTodos();
 	
-	ConceptoDTO crearConcepto(ConceptoCrearDTO conceptoNuevo);
+	ConceptoDTO crear(ConceptoCrearDTO conceptoNuevo);
 	
-	boolean eliminarConcepto(Long id);
+	boolean eliminar(Long id);
 	
-	ConceptoDTO actualizarConcepto(ConceptoCrearDTO conceptoActualizado, Long id);
+	ConceptoDTO actualizar(ConceptoCrearDTO conceptoActualizado, Long id);
 
 	List<ConceptoDTO> traerConceptosPorCapitulo(Long capituloId);
 	

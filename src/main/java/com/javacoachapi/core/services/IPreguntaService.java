@@ -2,34 +2,19 @@ package com.javacoachapi.core.services;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
-import com.javacoachapi.core.models.dto.catalogo.CuestionarioDTO;
 import com.javacoachapi.core.models.dto.catalogo.PreguntaDTO;
-import com.javacoachapi.core.models.dto.catalogo.RespuestaDTO;
 import com.javacoachapi.core.models.dto.create.PreguntaCrearDTO;
 
-@Service
 public interface IPreguntaService {
 
-	PreguntaDTO traerPregunta(Long id);
+	PreguntaDTO traerUno(Long id);
 	
-	List<PreguntaDTO> traerTodasLasPreguntas();
+	List<PreguntaDTO> traerTodos();
 	
-	PreguntaDTO crearPregunta(PreguntaCrearDTO preguntaNueva);
+	PreguntaDTO crear(PreguntaCrearDTO preguntaNueva);
 	
-	boolean eliminarPregunta(Long id);
+	boolean eliminar(Long id);
 	
-	PreguntaDTO actualizarPregunta(PreguntaCrearDTO preguntaActualizada, Long id);
-	
-	List<PreguntaDTO> traerPreguntasPorConcepto(Long conceptoId);
+	PreguntaDTO actualizar(PreguntaCrearDTO preguntaActualizada, Long id);
 
-	List<RespuestaDTO> traerRespuestasPorPregunta(Long preguntaId);
-	
-	Boolean validarRespuesta(Long idRespuesta, Long idPregunta);
-	
-	CuestionarioDTO crearCuestionarioConcepto(Long idConcepto);
-	
-	CuestionarioDTO crearCuestionarioCapitulo(Long idCapitulo);
-	
 }

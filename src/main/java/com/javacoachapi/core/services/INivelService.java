@@ -6,14 +6,14 @@ import com.javacoachapi.core.models.dto.create.NivelDTO;
 
 public interface INivelService {
 	
-	NivelDTO traerNivel(Long id);
+	NivelDTO traerUno(Long id);
 	
-	List<NivelDTO> traerTodosLosNiveles();
+	List<NivelDTO> traerTodos();
 	
-	NivelDTO crearNivel(NivelDTO nivelNuevo);
+	NivelDTO crear(NivelDTO nivelNuevo);
 	
-	boolean eliminarNivel(Long id);
+	boolean eliminar(Long id);
 	
-	NivelDTO actualizarNivel(NivelDTO nivelActualizado, Long id) throws Exception;
+	NivelDTO actualizar(NivelDTO nivelActualizado, Long id) throws Exception;
 
 }

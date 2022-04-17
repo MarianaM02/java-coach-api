@@ -1,6 +1,5 @@
 package com.javacoachapi.core.models.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +23,7 @@ public class Concepto {
 	private String nombre;
 	@Column(columnDefinition = "TEXT")
 	private String contenido;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Capitulo capitulo;
 
 }

@@ -26,32 +26,32 @@ public class ConceptosController implements IConceptosController{
 	@Override
 	@GetMapping("/todos")
 	public ResponseEntity<?> traerConceptos() {
-		return ResponseEntity.ok().body(conceptoServ.traerTodosLosConceptos());
+		return ResponseEntity.ok().body(conceptoServ.traerTodos());
 	}
 
 	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<?> traerConcepto(@PathVariable Long id) {
-		return ResponseEntity.ok().body(conceptoServ.traerConcepto(id));
+		return ResponseEntity.ok().body(conceptoServ.traerUno(id));
 	}
 
 	@Override
 	@PostMapping("/crear")
 	public ResponseEntity<?> crearConcepto(@RequestBody ConceptoCrearDTO conceptoNuevo) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(conceptoServ.crearConcepto(conceptoNuevo));
+		return ResponseEntity.status(HttpStatus.CREATED).body(conceptoServ.crear(conceptoNuevo));
 	}
 
 	@Override
 	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> eliminarConcepto(@PathVariable Long id) {
-		conceptoServ.eliminarConcepto(id);
+		conceptoServ.eliminar(id);
 		return ResponseEntity.noContent().build();
 	}
 
 	@Override
 	@PutMapping("/actualizar/{id}")
 	public ResponseEntity<?> actualizarConcepto(@RequestBody ConceptoCrearDTO conceptoActualizado, @PathVariable Long id) {
-		return ResponseEntity.ok().body(conceptoServ.actualizarConcepto(conceptoActualizado, id));
+		return ResponseEntity.ok().body(conceptoServ.actualizar(conceptoActualizado, id));
 	}
 
 }

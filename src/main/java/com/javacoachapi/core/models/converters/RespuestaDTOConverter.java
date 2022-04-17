@@ -21,6 +21,7 @@ public class RespuestaDTOConverter {
 	
 	public Respuesta convertirDTOAEntity(RespuestaCrearDTO respuestaDTO) {
 		Respuesta respuesta = new Respuesta();
+		respuesta.setId(respuestaDTO.getId());
 		respuesta.setRespuesta(respuestaDTO.getRespuesta());
 		respuesta.setValida(respuestaDTO.getValida());
 		return respuesta;

@@ -12,8 +12,8 @@ public class CuestionarioDTO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Long idConcepto;
-	private String nombreConcepto;
+	private Long id;
+	private String nombre;
 	private List<PreguntaDTO> preguntas;
 
 }

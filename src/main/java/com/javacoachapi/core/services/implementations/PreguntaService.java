@@ -5,63 +5,54 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.javacoachapi.core.models.converters.PreguntaDTOConverter;
 import com.javacoachapi.core.models.converters.RespuestaDTOConverter;
-import com.javacoachapi.core.models.dto.catalogo.CuestionarioDTO;
 import com.javacoachapi.core.models.dto.catalogo.PreguntaDTO;
-import com.javacoachapi.core.models.dto.catalogo.RespuestaDTO;
 import com.javacoachapi.core.models.dto.create.PreguntaCrearDTO;
 import com.javacoachapi.core.models.entities.Pregunta;
-import com.javacoachapi.core.models.entities.Respuesta;
 import com.javacoachapi.core.repository.IConceptoRepository;
 import com.javacoachapi.core.repository.IPreguntaRepository;
-import com.javacoachapi.core.repository.IRespuestaRepository;
-import com.javacoachapi.core.services.IConceptoService;
 import com.javacoachapi.core.services.IPreguntaService;
 
 @Service
-public class PreguntaService implements IPreguntaService{
+@Transactional
+public class PreguntaService implements IPreguntaService {
 
 	@Autowired
 	IPreguntaRepository preguntaRepo;
 	@Autowired
 	PreguntaDTOConverter preguntaDtoConverter;
 	@Autowired
-	IRespuestaRepository respuestaRepo;
-	@Autowired
 	RespuestaDTOConverter respuestaDtoConverter;
 	@Autowired
-	IConceptoService conceptoServ;
-	@Autowired
 	IConceptoRepository conceptoRepo;
-	
+
 	@Override
-	public PreguntaDTO traerPregunta(Long id) {
-		// TODO Exception No encontrada
-		return preguntaDtoConverter.convertirEntityADTO(
-				preguntaRepo.findById(id).orElse(null));
+	public PreguntaDTO traerUno(Long id) {
+		// TODO orElseThrows() Exception no encontrado
+		return preguntaDtoConverter.convertirEntityADTO(preguntaRepo.findById(id).orElse(null));
 	}
 
 	@Override
-	public List<PreguntaDTO> traerTodasLasPreguntas() {
+	public List<PreguntaDTO> traerTodos() {
 		List<Pregunta> preguntas = preguntaRepo.findAll();
-		List<PreguntaDTO> preguntasDto = preguntas.stream()
-				.map(preguntaDtoConverter::convertirEntityADTO)
+		List<PreguntaDTO> preguntasDto = preguntas.stream().map(preguntaDtoConverter::convertirEntityADTO)
 				.collect(Collectors.toList());
 		return preguntasDto;
 	}
 
 	@Override
-	public PreguntaDTO crearPregunta(PreguntaCrearDTO preguntaNueva) {
-		// TODO Exception No Creada
+	public PreguntaDTO crear(PreguntaCrearDTO preguntaNueva) {
+		// TODO orElseThrows() Exception no encontrado
 		Pregunta pregunta = preguntaDtoConverter.convertirDTOAEntity(preguntaNueva);
 		return preguntaDtoConverter.convertirEntityADTO(preguntaRepo.save(pregunta));
 	}
 
 	@Override
-	public boolean eliminarPregunta(Long id) {
-		// TODO Exception No encontrada
+	public boolean eliminar(Long id) {
+		// TODO orElseThrows() Exception no encontrado
 		if (preguntaRepo.existsById(id)) {
 			preguntaRepo.deleteById(id);
 			return true;
@@ -70,75 +61,24 @@ public class PreguntaService implements IPreguntaService{
 	}
 
 	@Override
-	public PreguntaDTO actualizarPregunta(PreguntaCrearDTO preguntaActualizada, Long id) {
-		// TODO orElseThrows() Exeption no encontrado
-		// TODO Al actualizar, agrega preguntas nuevas en lugar de guardar en el mismo registro
-				if (preguntaRepo.existsById(id)) {
-					Pregunta pregunta = preguntaRepo.findById(id).get();
-					pregunta.setPregunta(preguntaActualizada.getPregunta());
-					pregunta.setRespuestas(preguntaActualizada.getRespuestas()
-							.stream()
-							.map(respuestaDtoConverter::convertirDTOAEntity)
-							.collect(Collectors.toList()));
-					pregunta.setConcepto(conceptoRepo.findById(preguntaActualizada.getConceptoId()).get());
-					preguntaRepo.save(pregunta);
-					return preguntaDtoConverter.convertirEntityADTO(pregunta);
-				}
-				return null;
-	}
-
-	@Override
-	public List<PreguntaDTO> traerPreguntasPorConcepto(Long conceptoId) {
-		List<Pregunta> preguntas = preguntaRepo.findByConceptoId(conceptoId);
-		List<PreguntaDTO> preguntasDto = preguntas.stream()
-				.map(preguntaDtoConverter::convertirEntityADTO)
-				.collect(Collectors.toList());
-		return preguntasDto;
-	}
-
-	@Override
-	public List<RespuestaDTO> traerRespuestasPorPregunta(Long preguntaId) {
-		if (preguntaRepo.existsById(preguntaId)) {
-			List<Respuesta> respuestas = preguntaRepo.findById(
-					preguntaId).get().getRespuestas();
-			List<RespuestaDTO> respuestasDto = respuestas.stream()
-					.map(respuestaDtoConverter::convertirEntityADTO)
-					.collect(Collectors.toList());
-			return respuestasDto;
+	public PreguntaDTO actualizar(PreguntaCrearDTO preguntaActualizada, Long id) {
+		// TODO orElseThrows() Exception no encontrado
+		if (preguntaRepo.existsById(id)) {
+			Pregunta pregunta = preguntaRepo.findById(id).get();
+			pregunta.setPregunta(preguntaActualizada.getPregunta());
+			pregunta.setConcepto(conceptoRepo.findById(preguntaActualizada.getConceptoId()).get());
+			pregunta.getRespuestas().clear();
+			pregunta.getRespuestas().addAll(preguntaActualizada.getRespuestas().stream()
+					.map(respuestaDtoConverter::convertirDTOAEntity)
+					.collect(Collectors.toList()));
+			PreguntaDTO preguntaDto = preguntaDtoConverter.convertirEntityADTO(preguntaRepo.save(pregunta));
+			
+			return preguntaDto;
 		}
-		// TODO Exception No encontrada
 		return null;
 	}
 
-	@Override
-	public Boolean validarRespuesta(Long idRespuesta, Long idPregunta) {
-		List<Respuesta> listaRespuestas = preguntaRepo.findById(idPregunta).orElse(null).getRespuestas();
-		Respuesta respuesta = respuestaRepo.findById(idRespuesta).orElse(null);
-		if (listaRespuestas.contains(respuesta)) {
-			return respuesta.getValida();
-		}
-		// TODO Exception respuesta no corresponde a esa pregunta
-		return false;
-	}
 
-	@Override
-	public CuestionarioDTO crearCuestionarioConcepto(Long idConcepto) {
-		CuestionarioDTO cuestionario = new CuestionarioDTO();
-		cuestionario.setIdConcepto(idConcepto);
-		cuestionario.setNombreConcepto(
-				conceptoServ.traerConcepto(idConcepto).getNombre());
-		cuestionario.setPreguntas(this.traerPreguntasPorConcepto(idConcepto));
-		return cuestionario;
-	}
 
-	// TODO Cuestionario por capitulo
-	@Override
-	public CuestionarioDTO crearCuestionarioCapitulo(Long idCapitulo) {
-		CuestionarioDTO cuestionario = new CuestionarioDTO();
-		// 
-		return cuestionario;
-	}
-
-	
 
 }

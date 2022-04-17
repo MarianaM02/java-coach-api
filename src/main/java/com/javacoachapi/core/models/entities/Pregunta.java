@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,9 +25,9 @@ public class Pregunta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String pregunta;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Concepto concepto;
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Respuesta> respuestas;
 
 }

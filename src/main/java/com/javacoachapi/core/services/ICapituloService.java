@@ -2,25 +2,19 @@ package com.javacoachapi.core.services;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.javacoachapi.core.models.dto.catalogo.CapituloDTO;
-import com.javacoachapi.core.models.dto.catalogo.PreguntaDTO;
 import com.javacoachapi.core.models.dto.create.CapituloCrearDTO;
 
-@Service
 public interface ICapituloService {
 
-	CapituloDTO traerCapitulo(Long capituloId);
+	CapituloDTO traerUno(Long capituloId);
 	
-	List<CapituloDTO> traerTodosLosCapitulos();
+	List<CapituloDTO> traerTodos();
 	
-	CapituloDTO crearCapitulo(CapituloCrearDTO capituloNuevo);
+	CapituloDTO crear(CapituloCrearDTO capituloNuevo);
 	
-	boolean eliminarCapitulo(Long id);
+	boolean eliminar(Long id);
 	
-	CapituloDTO actualizarCapitulo(CapituloCrearDTO capituloActualizado, Long id);
+	CapituloDTO actualizar(CapituloCrearDTO capituloActualizado, Long id);
 
-	List<PreguntaDTO> traerPreguntasPorCapitulo(Long capituloId);
-	
 }
