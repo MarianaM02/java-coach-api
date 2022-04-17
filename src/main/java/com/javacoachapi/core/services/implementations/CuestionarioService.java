@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.javacoachapi.core.exceptions.DataNotFoundException;
 import com.javacoachapi.core.models.converters.PreguntaDTOConverter;
 import com.javacoachapi.core.models.converters.RespuestaDTOConverter;
 import com.javacoachapi.core.models.dto.catalogo.CuestionarioDTO;
@@ -46,27 +49,28 @@ public class CuestionarioService implements ICuestionarioService {
 	@Override
 	public List<PreguntaDTO> traerPreguntasPorConcepto(Long conceptoId) {
 		List<Pregunta> preguntas = preguntaRepo.findByConceptoId(conceptoId);
-		List<PreguntaDTO> preguntasDto = preguntas.stream().map(preguntaDtoConverter::convertirEntityADTO)
+		List<PreguntaDTO> preguntasDto = preguntas.stream()
+				.map(preguntaDtoConverter::convertirEntityADTO)
 				.collect(Collectors.toList());
 		return preguntasDto;
 	}
 
 	@Override
 	public List<RespuestaDTO> traerRespuestasPorPregunta(Long preguntaId) {
-		// TODO orElseThrows() Exception no encontrado
-		if (preguntaRepo.existsById(preguntaId)) {
-			List<Respuesta> respuestas = preguntaRepo.findById(preguntaId).get().getRespuestas();
-			List<RespuestaDTO> respuestasDto = respuestas.stream().map(respuestaDtoConverter::convertirEntityADTO)
-					.collect(Collectors.toList());
-			return respuestasDto;
-		}
-		return null;
+
+		List<Respuesta> respuestas = preguntaRepo.findById(preguntaId)
+				.orElseThrow(() -> new DataNotFoundException(preguntaId)).getRespuestas();
+		List<RespuestaDTO> respuestasDto = respuestas.stream()
+				.map(respuestaDtoConverter::convertirEntityADTO)
+				.collect(Collectors.toList());
+		return respuestasDto;
+
 	}
 
 	@Override
 	public List<PreguntaDTO> traerPreguntasPorCapitulo(Long capituloId) {
-		// TODO orElseThrows() Exception no encontrado
-		List<Concepto> conceptos = conceptoRepo.findByCapitulo(capituloRepo.findById(capituloId).orElse(null));
+		List<Concepto> conceptos = conceptoRepo.findByCapitulo(
+				capituloRepo.findById(capituloId).orElseThrow(() -> new DataNotFoundException(capituloId)));
 		List<PreguntaDTO> preguntas = new ArrayList<PreguntaDTO>();
 		conceptos.stream().map(c -> this.traerPreguntasPorConcepto(c.getId())).collect(Collectors.toList())
 				.forEach(p -> preguntas.addAll(p));
@@ -75,14 +79,14 @@ public class CuestionarioService implements ICuestionarioService {
 
 	@Override
 	public Boolean validarRespuesta(Long idRespuesta, Long idPregunta) {
-		// TODO orElseThrows() Exception no encontrado
-		List<Respuesta> listaRespuestas = preguntaRepo.findById(idPregunta).orElse(null).getRespuestas();
-		Respuesta respuesta = respuestaRepo.findById(idRespuesta).orElse(null);
+		List<Respuesta> listaRespuestas = preguntaRepo.findById(idPregunta)
+				.orElseThrow(() -> new DataNotFoundException(idPregunta)).getRespuestas();
+		Respuesta respuesta = respuestaRepo.findById(idRespuesta)
+				.orElseThrow(() -> new DataNotFoundException(idRespuesta));
 		if (listaRespuestas.contains(respuesta)) {
 			return respuesta.getValida();
 		}
-		// TODO Exception respuesta no corresponde a esa pregunta
-		return false;
+		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La respuesta no corresponde a la pregunta");
 	}
 
 	@Override

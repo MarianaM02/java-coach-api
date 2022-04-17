@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.javacoachapi.core.exceptions.DataNotFoundException;
 import com.javacoachapi.core.models.converters.NivelDTOConverter;
 import com.javacoachapi.core.models.dto.create.NivelDTO;
 import com.javacoachapi.core.models.entities.Nivel;
@@ -24,7 +25,8 @@ public class NivelService implements INivelService {
 
 	@Override
 	public NivelDTO traerUno(Long id) {
-		return nivelDtoConverter.convertirEntityADTO(nivelRepo.findById(id).orElse(null));
+		return nivelDtoConverter
+				.convertirEntityADTO(nivelRepo.findById(id).orElseThrow(() -> new DataNotFoundException(id)));
 	}
 
 	@Override
@@ -48,20 +50,16 @@ public class NivelService implements INivelService {
 			nivelRepo.deleteById(id);
 			return true;
 		}
-		return false;
+		throw new DataNotFoundException(id);
 
 	}
 
 	@Override
 	public NivelDTO actualizar(NivelDTO nivelActualizado, Long id) throws Exception {
-		// TODO orElseThrows() Exeption no encontrado
-		if (nivelRepo.existsById(id)) {
-			Nivel nivel = nivelRepo.findById(id).get();
-			nivel.setNombre(nivelActualizado.getNombre());
-			nivelRepo.save(nivel);
-			return nivelDtoConverter.convertirEntityADTO(nivel);
-		}
-		return null;
+		Nivel nivel = nivelRepo.findById(id).orElseThrow(() -> new DataNotFoundException(id));
+		nivel.setNombre(nivelActualizado.getNombre());
+		nivelRepo.save(nivel);
+		return nivelDtoConverter.convertirEntityADTO(nivel);
 
 	}
 
