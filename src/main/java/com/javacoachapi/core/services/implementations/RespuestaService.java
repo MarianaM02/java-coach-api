@@ -22,28 +22,29 @@ public class RespuestaService implements IRespuestaService {
 	RespuestaDTOConverter respuestaDtoConverter;
 
 	@Override
-	public RespuestaDTO traerRespuesta(Long id) {
-		// TODO orElseThrows() Exeption no encontrado
+	public RespuestaDTO traerUno(Long id) {
+		// TODO orElseThrows() Exception no encontrado
 		return respuestaDtoConverter.convertirEntityADTO(respuestaRepo.findById(id).orElse(null));
 	}
 
 	@Override
-	public List<RespuestaDTO> traerTodasLasRespuestas() {
+	public List<RespuestaDTO> traerTodos() {
 		List<Respuesta> respuestas = respuestaRepo.findAll();
-		List<RespuestaDTO> respuestasDto = respuestas.stream().map(respuestaDtoConverter::convertirEntityADTO)
+		List<RespuestaDTO> respuestasDto = respuestas.stream()
+				.map(respuestaDtoConverter::convertirEntityADTO)
 				.collect(Collectors.toList());
 		return respuestasDto;
 	}
 
 	@Override
-	public RespuestaDTO crearRespuesta(RespuestaCrearDTO respuestaNueva) {
-		// TODO orElseThrows() Exeption no creado
+	public RespuestaDTO crear(RespuestaCrearDTO respuestaNueva) {
+		// TODO orElseThrows() Exception no creado
 		Respuesta respuesta = respuestaDtoConverter.convertirDTOAEntity(respuestaNueva);
 		return respuestaDtoConverter.convertirEntityADTO(respuestaRepo.save(respuesta));
 	}
 
 	@Override
-	public boolean eliminarRespuesta(Long id) {
+	public boolean eliminar(Long id) {
 		// TODO orElseThrows() Exeption no encontrado
 		if (respuestaRepo.existsById(id)) {
 			respuestaRepo.deleteById(id);
@@ -53,7 +54,7 @@ public class RespuestaService implements IRespuestaService {
 	}
 
 	@Override
-	public RespuestaDTO actualizarRespuesta(RespuestaCrearDTO respuestaActualizada, Long id) {
+	public RespuestaDTO actualizar(RespuestaCrearDTO respuestaActualizada, Long id) {
 		// TODO orElseThrows() Exeption no encontrado
 		if (respuestaRepo.existsById(id)) {
 			Respuesta respuesta = respuestaRepo.findById(id).get();

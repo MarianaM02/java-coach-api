@@ -26,31 +26,31 @@ public class NivelController implements INivelController {
 	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<?> traerNivel(@PathVariable Long id) {
-		return ResponseEntity.ok().body(nivelServ.traerNivel(id));
+		return ResponseEntity.ok().body(nivelServ.traerUno(id));
 	}
 	
 	@Override
 	@GetMapping("/todos")
 	public ResponseEntity<?> traerTodosLosNiveles() {
-		return ResponseEntity.ok().body(nivelServ.traerTodosLosNiveles());
+		return ResponseEntity.ok().body(nivelServ.traerTodos());
 	}
 
 	@Override
 	@PostMapping("/crear")
 	public ResponseEntity<?> crearNivel(@RequestBody NivelDTO nivelNuevo) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(nivelServ.crearNivel(nivelNuevo));
+		return ResponseEntity.status(HttpStatus.CREATED).body(nivelServ.crear(nivelNuevo));
 	}
 
 	@Override
 	@PutMapping("/actualizar/{id}")
 	public ResponseEntity<?> actualizarNivel(@RequestBody NivelDTO nivelActualizado, @PathVariable Long id) throws Exception {
-		return ResponseEntity.ok().body(nivelServ.actualizarNivel(nivelActualizado, id));
+		return ResponseEntity.ok().body(nivelServ.actualizar(nivelActualizado, id));
 	}
 
 	@Override
 	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> eliminarNivel(@PathVariable Long id) {
-		nivelServ.eliminarNivel(id);
+		nivelServ.eliminar(id);
 		return ResponseEntity.noContent().build();
 	}
 

@@ -26,32 +26,32 @@ public class CapitulosController implements ICapitulosController{
 	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<?> traerCapitulo(@PathVariable Long id) {
-		return ResponseEntity.ok().body(capituloServ.traerCapitulo(id));
+		return ResponseEntity.ok().body(capituloServ.traerUno(id));
 	}
 
 	@Override
 	@GetMapping("/todos")
 	public ResponseEntity<?> traerTodosLosCapitulos() {
-		return ResponseEntity.ok().body(capituloServ.traerTodosLosCapitulos());
+		return ResponseEntity.ok().body(capituloServ.traerTodos());
 	}
 
 	@Override
 	@PostMapping("/crear")
 	public ResponseEntity<?> crearCapitulo(@RequestBody CapituloCrearDTO capituloNuevo) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(capituloServ.crearCapitulo(capituloNuevo));
+		return ResponseEntity.status(HttpStatus.CREATED).body(capituloServ.crear(capituloNuevo));
 	}
 
 	@Override
 	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> eliminarCapitulo(@PathVariable Long id) {
-		capituloServ.eliminarCapitulo(id);
+		capituloServ.eliminar(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@Override
 	@PutMapping("/actualizar/{id}")
 	public ResponseEntity<?> actualizarCapitulo(@RequestBody CapituloCrearDTO capituloActualizado, @PathVariable Long id) {
-		return ResponseEntity.ok().body(capituloServ.actualizarCapitulo(capituloActualizado, id));
+		return ResponseEntity.ok().body(capituloServ.actualizar(capituloActualizado, id));
 	}
 
 }

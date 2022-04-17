@@ -19,7 +19,7 @@ public class UtilidadesController implements IUtilidadesController{
 	@Override
 	@GetMapping("/generar/reporte")
 	public ResponseEntity<?> generarReporte() {
-		// TODO!! Generar reporte en PDF
+		// TODO Generar reporte en PDF
 		return null;
 	}
 
