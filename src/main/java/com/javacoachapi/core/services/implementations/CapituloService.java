@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.javacoachapi.core.exceptions.DataNotFoundException;
 import com.javacoachapi.core.models.converters.CapituloDTOConverter;
 import com.javacoachapi.core.models.dto.catalogo.CapituloDTO;
 import com.javacoachapi.core.models.dto.create.CapituloCrearDTO;
@@ -28,8 +29,7 @@ public class CapituloService implements ICapituloService {
 
 	@Override
 	public CapituloDTO traerUno(Long capituloId) {
-		// TODO orElseThrows() Exeption no encontrado
-		Capitulo capitulo = capituloRepo.findById(capituloId).orElse(null);
+		Capitulo capitulo = capituloRepo.findById(capituloId).orElseThrow(() -> new DataNotFoundException(capituloId));
 		return capituloDtoConverter.convertirEntityADTO(capitulo);
 	}
 
@@ -42,33 +42,28 @@ public class CapituloService implements ICapituloService {
 
 	@Override
 	public CapituloDTO crear(CapituloCrearDTO capituloNuevo) {
-		// TODO orElseThrows() Exeption no creado
 		Capitulo capitulo = capituloDtoConverter.convertirDTOAEntity(capituloNuevo);
 		return capituloDtoConverter.convertirEntityADTO(capituloRepo.save(capitulo));
 	}
 
 	@Override
 	public boolean eliminar(Long id) {
-		// TODO orElseThrows() Exeption no encontrado
 		if (capituloRepo.existsById(id)) {
 			capituloRepo.deleteById(id);
 			return true;
 		}
-		return false;
+		throw new DataNotFoundException(id);
 	}
 
 	@Override
 	public CapituloDTO actualizar(CapituloCrearDTO capituloActualizado, Long id) {
-		// TODO orElseThrows() Exeption no encontrado
-		if (capituloRepo.existsById(id)) {
-			Capitulo capitulo = capituloRepo.findById(id).get();
-			capitulo.setNumero(capituloActualizado.getNumero());
-			capitulo.setNombre(capituloActualizado.getNombre());
-			capitulo.setNivel(nivelRepo.getById(capituloActualizado.getNivelId()));
-			capituloRepo.save(capitulo);
-			return capituloDtoConverter.convertirEntityADTO(capitulo);
-		}
-		return null;
+		Capitulo capitulo = capituloRepo.findById(id).orElseThrow(() -> new DataNotFoundException(id));
+		capitulo.setNumero(capituloActualizado.getNumero());
+		capitulo.setNombre(capituloActualizado.getNombre());
+		capitulo.setNivel(nivelRepo.getById(capituloActualizado.getNivelId()));
+		capituloRepo.save(capitulo);
+		return capituloDtoConverter.convertirEntityADTO(capitulo);
+
 	}
 
 }

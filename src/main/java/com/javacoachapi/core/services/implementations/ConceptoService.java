@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.javacoachapi.core.exceptions.DataNotFoundException;
 import com.javacoachapi.core.models.converters.ConceptoDTOConverter;
 import com.javacoachapi.core.models.dto.catalogo.ConceptoDTO;
 import com.javacoachapi.core.models.dto.create.ConceptoCrearDTO;
@@ -29,8 +30,8 @@ public class ConceptoService implements IConceptoService {
 
 	@Override
 	public ConceptoDTO traerUno(Long id) {
-		// TODO orElseThrows() Exception no encontrado
-		Concepto concepto = conceptoRepo.findById(id).orElse(null);
+		Concepto concepto = conceptoRepo.findById(id)
+				.orElseThrow(() -> new DataNotFoundException(id));
 		return conceptoDTOConverter.convertirEntityADTO(concepto);
 	}
 
@@ -45,44 +46,41 @@ public class ConceptoService implements IConceptoService {
 
 	@Override
 	public ConceptoDTO crear(ConceptoCrearDTO conceptoNuevo) {
-		// TODO orElseThrows() Exception no creado
 		Concepto concepto = conceptoDTOConverter.convertirDTOAEntity(conceptoNuevo);
 		return conceptoDTOConverter.convertirEntityADTO(conceptoRepo.save(concepto));
 	}
 
 	@Override
 	public boolean eliminar(Long id) {
-		// TODO orElseThrows() Exception no encontrado
 		if (conceptoRepo.existsById(id)) {
 			conceptoRepo.deleteById(id);
 			return true;			
 		}
-		return false;
+		throw new DataNotFoundException(id);
 	}
 
 	@Override
 	public ConceptoDTO actualizar(ConceptoCrearDTO conceptoActualizado, Long id) {
-		// TODO orElseThrows() Exception no encontrado
-		if (conceptoRepo.existsById(id)) {
-			Concepto concepto = conceptoRepo.findById(id).get();
+			Concepto concepto = conceptoRepo.findById(id)
+					.orElseThrow(() -> new DataNotFoundException(id));
 			concepto.setNombre(conceptoActualizado.getNombre());
 			concepto.setContenido(conceptoActualizado.getContenido());
 			concepto.setCapitulo(capituloRepo.findById(conceptoActualizado.getCapituloId()).get());
 			conceptoRepo.save(concepto);
 			return conceptoDTOConverter.convertirEntityADTO(concepto);
-		}
-		return null;
 	}
 
 	@Override
 	public List<ConceptoDTO> traerConceptosPorCapitulo(Long capituloId) {
-		// TODO orElseThrows() Exception no encontrado
-		Capitulo capitulo = capituloRepo.findById(capituloId).get();
+		Capitulo capitulo = capituloRepo.findById(capituloId)
+				.orElseThrow(() -> new DataNotFoundException(capituloId));
 		List<ConceptoDTO> conceptosDto = conceptoRepo.findByCapitulo(capitulo)
 				.stream()
 				.map(conceptoDTOConverter::convertirEntityADTO)
 				.collect(Collectors.toList());
 		return conceptosDto;
 	}
+	
+	// TODO Concepto Aleatorio Método
 
 }

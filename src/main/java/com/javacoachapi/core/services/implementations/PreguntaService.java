@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.javacoachapi.core.exceptions.DataNotFoundException;
 import com.javacoachapi.core.models.converters.PreguntaDTOConverter;
 import com.javacoachapi.core.models.converters.RespuestaDTOConverter;
 import com.javacoachapi.core.models.dto.catalogo.PreguntaDTO;
@@ -31,8 +32,8 @@ public class PreguntaService implements IPreguntaService {
 
 	@Override
 	public PreguntaDTO traerUno(Long id) {
-		// TODO orElseThrows() Exception no encontrado
-		return preguntaDtoConverter.convertirEntityADTO(preguntaRepo.findById(id).orElse(null));
+		return preguntaDtoConverter
+				.convertirEntityADTO(preguntaRepo.findById(id).orElseThrow(() -> new DataNotFoundException(id)));
 	}
 
 	@Override
@@ -45,40 +46,31 @@ public class PreguntaService implements IPreguntaService {
 
 	@Override
 	public PreguntaDTO crear(PreguntaCrearDTO preguntaNueva) {
-		// TODO orElseThrows() Exception no encontrado
 		Pregunta pregunta = preguntaDtoConverter.convertirDTOAEntity(preguntaNueva);
 		return preguntaDtoConverter.convertirEntityADTO(preguntaRepo.save(pregunta));
 	}
 
 	@Override
 	public boolean eliminar(Long id) {
-		// TODO orElseThrows() Exception no encontrado
 		if (preguntaRepo.existsById(id)) {
 			preguntaRepo.deleteById(id);
 			return true;
 		}
-		return false;
+		throw new DataNotFoundException(id);
 	}
 
 	@Override
 	public PreguntaDTO actualizar(PreguntaCrearDTO preguntaActualizada, Long id) {
-		// TODO orElseThrows() Exception no encontrado
-		if (preguntaRepo.existsById(id)) {
-			Pregunta pregunta = preguntaRepo.findById(id).get();
-			pregunta.setPregunta(preguntaActualizada.getPregunta());
-			pregunta.setConcepto(conceptoRepo.findById(preguntaActualizada.getConceptoId()).get());
-			pregunta.getRespuestas().clear();
-			pregunta.getRespuestas().addAll(preguntaActualizada.getRespuestas().stream()
-					.map(respuestaDtoConverter::convertirDTOAEntity)
-					.collect(Collectors.toList()));
-			PreguntaDTO preguntaDto = preguntaDtoConverter.convertirEntityADTO(preguntaRepo.save(pregunta));
-			
-			return preguntaDto;
-		}
-		return null;
+		Pregunta pregunta = preguntaRepo.findById(id).orElseThrow(() -> new DataNotFoundException(id));
+		pregunta.setPregunta(preguntaActualizada.getPregunta());
+		pregunta.setConcepto(conceptoRepo.findById(preguntaActualizada.getConceptoId()).get());
+		pregunta.getRespuestas().clear();
+		pregunta.getRespuestas().addAll(preguntaActualizada.getRespuestas().stream()
+				.map(respuestaDtoConverter::convertirDTOAEntity).collect(Collectors.toList()));
+		PreguntaDTO preguntaDto = preguntaDtoConverter.convertirEntityADTO(preguntaRepo.save(pregunta));
+
+		return preguntaDto;
+
 	}
-
-
-
 
 }
