@@ -1,7 +1,9 @@
 package com.javacoachapi.core.controller;
 
-import org.springframework.http.ResponseEntity;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
+import org.springframework.http.ResponseEntity;
 
 public interface IUtilidadesController {
 
@@ -18,7 +20,10 @@ public interface IUtilidadesController {
 	 * respuestas y ejemplos relacionados.
 	 * 
 	 * @return
+	 * @throws IOException 
+	 * @throws URISyntaxException 
+	 * @throws DocumentException 
 	 */
-	ResponseEntity<?> generarReporte();
+	ResponseEntity<?> generarReporte() throws IOException;
 
 }

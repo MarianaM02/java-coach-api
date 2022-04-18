@@ -1,12 +1,13 @@
 package com.javacoachapi.core.models.dto.catalogo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class CapituloDTO implements Serializable {
+public class CatalogoCapituloDTO implements Serializable{
 	/**
 	 * 
 	 */
@@ -15,5 +16,5 @@ public class CapituloDTO implements Serializable {
 	private Integer numero;
 	private String nombre;
 	private String nivelNombre;
-	
+	private List<CatalogoConceptoDTO> conceptos;
 }

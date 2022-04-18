@@ -23,12 +23,10 @@ public class CapituloDTOConverter {
 	@Autowired
 	IConceptoService conceptoServ;
 	@Autowired
-	ConceptoDTOConverter conceptoDtoConverter;
+	CatalogoConceptoDTOConverter conceptoDtoConverter;
 	
 	public CapituloDTO convertirEntityADTO(Capitulo capitulo) {
 		CapituloDTO capituloDto = modelMapper.map(capitulo, CapituloDTO.class);
-		capituloDto.setConceptos(
-				conceptoServ.traerConceptosPorCapitulo(capitulo.getId()));
 		return capituloDto;
 	}
 	
