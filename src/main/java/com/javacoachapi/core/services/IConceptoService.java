@@ -18,5 +18,7 @@ public interface IConceptoService {
 	ConceptoDTO actualizar(ConceptoCrearDTO conceptoActualizado, Long id);
 
 	List<ConceptoDTO> traerConceptosPorCapitulo(Long capituloId);
+
+	ConceptoDTO traerConceptoAleatorio();
 	
 }

@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 
 import org.springframework.http.ResponseEntity;
 
+import com.javacoachapi.core.models.dto.mail.FormMailRequest;
+
 public interface IUtilidadesController {
 
 	/**
@@ -12,8 +14,9 @@ public interface IUtilidadesController {
 	 * 
 	 * @param mail
 	 * @return
+	 * @throws IOException 
 	 */
-	ResponseEntity<?> enviarConceptoAleatorioMail(String mail);
+	ResponseEntity<?> enviarConceptoAleatorioMail(FormMailRequest form) throws IOException;
 
 	/**
 	 * Sirve para generar un PDF con las cantidades de conceptos, preguntas,
@@ -25,5 +28,11 @@ public interface IUtilidadesController {
 	 * @throws DocumentException 
 	 */
 	ResponseEntity<?> generarReporte() throws IOException;
+
+	/**
+	 * @throws IOException 
+	 * 
+	 */
+
 
 }

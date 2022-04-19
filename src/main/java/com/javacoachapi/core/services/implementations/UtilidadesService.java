@@ -1,9 +1,19 @@
 package com.javacoachapi.core.services.implementations;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import javax.mail.Message;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 import com.itextpdf.io.font.FontConstants;
@@ -20,7 +30,10 @@ import com.itextpdf.layout.element.Paragraph;
 import com.javacoachapi.core.models.converters.CatalogoCapituloDTOConverter;
 import com.javacoachapi.core.models.dto.catalogo.CatalogoCapituloDTO;
 import com.javacoachapi.core.models.dto.catalogo.CatalogoDTO;
+import com.javacoachapi.core.models.dto.catalogo.ConceptoDTO;
+import com.javacoachapi.core.models.dto.mail.FormMailRequest;
 import com.javacoachapi.core.repository.ICapituloRepository;
+import com.javacoachapi.core.services.IConceptoService;
 import com.javacoachapi.core.services.IUtilidadesService;
 
 @Service
@@ -30,6 +43,10 @@ public class UtilidadesService implements IUtilidadesService {
 	ICapituloRepository capituloRepo;
 	@Autowired
 	CatalogoCapituloDTOConverter catCapituloDtoConverter;
+	@Autowired
+	IConceptoService conceptoServ;
+	@Autowired
+	private JavaMailSender emailSender;
 
 	@Override
 	public CatalogoDTO traerCatalogoDTO() {
@@ -40,7 +57,7 @@ public class UtilidadesService implements IUtilidadesService {
 	}
 
 	@Override
-	public void crearPDF(Object data) throws IOException {
+	public void crearPDF(String mail) throws IOException {
 
 		String rutaBanner = "./src/main/resources/static/Java Coach API Reporte Banner.png";
 		String rutaArchivo = "ReporteJCA.pdf";
@@ -56,7 +73,7 @@ public class UtilidadesService implements IUtilidadesService {
 		Image banner = new Image(ImageDataFactory.create(rutaBanner));
 		// Añado imagen al documento
 		document.add(banner);
-		//  Añado parrafo al documento
+		// Añado parrafo al documento
 		document.add(new Paragraph(""));
 
 		CatalogoDTO catalogo = traerCatalogoDTO();
@@ -78,24 +95,64 @@ public class UtilidadesService implements IUtilidadesService {
 
 			lista = new List().setSymbolIndent(10).setListSymbol("\u2022").setFont(font);
 			lista.add(new ListItem("Número de Conceptos: " + numeroConceptos))
-				.add(new ListItem("Número de Preguntas: " + numeroPreguntas))
-				.add(new ListItem("Número de Ejemplos: " + numeroEjemplos));
+					.add(new ListItem("Número de Preguntas: " + numeroPreguntas))
+					.add(new ListItem("Número de Ejemplos: " + numeroEjemplos));
 
-			document.add(new Paragraph("Capítulo " + numeroCapitulo + ": " + nombreCapitulo).setFont(font).setFontSize(12).setBold());
+			document.add(new Paragraph("Capítulo " + numeroCapitulo + ": " + nombreCapitulo).setFont(font)
+					.setFontSize(12).setBold());
 			document.add(new Paragraph("Dificultad: " + nombreDificultad).setFont(font).setFontSize(12));
 			document.add(lista);
 			document.add(new Paragraph(""));
 		}
-		
+
 		// Close document
 		document.close();
 
 	}
 
+	
 	@Override
-	public void mandarMail(Object data) {
-		// TODO Auto-generated method stub
+	public void mandarMailConJavaMailSender(FormMailRequest form) throws IOException, MailException {
+		ConceptoDTO concepto = conceptoServ.traerConceptoAleatorio();
+		
+		String to = form.getMail();
+		String subject = "JCA - Tema de hoy!";
+		final String template = this.htmlToString("./src/main/resources/static/MailTemplate.html")
+				.replaceAll("NOMBRE", form.getNombre())
+				.replaceAll("CONCEPTO", concepto.getNombre())
+				.replaceAll("CONTENIDO", concepto.getContenido());
 
+		// Para Mensaje de Texto Solamente
+		/*
+		 * SimpleMailMessage message = new SimpleMailMessage();
+		 * message.setFrom("javacoachapi@gmail.com"); message.setTo(to);
+		 * message.setSubject(subject); message.setText(template);
+		 * emailSender.send(message);
+		 */
+		
+		MimeMessagePreparator preparator = new MimeMessagePreparator() {
+	        
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+        
+                mimeMessage.setRecipient(Message.RecipientType.TO, 
+                        new InternetAddress(to));
+                mimeMessage.setFrom(new InternetAddress("javacoachapi@gmail.com"));
+                mimeMessage.setSubject(subject);
+                mimeMessage.setText(template, "UTF-8", "html");
+            }
+        };
+        
+        this.emailSender.send(preparator);
+		
 	}
 
+	private String htmlToString(String ruta) throws FileNotFoundException {
+		String str = "";
+		Scanner sc = new Scanner(new File(ruta));
+		while (sc.hasNext()) {
+			str += sc.nextLine();
+		}
+		sc.close();
+		return str;
+	}
 }
