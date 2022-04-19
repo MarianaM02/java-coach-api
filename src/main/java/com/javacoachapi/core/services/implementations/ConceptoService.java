@@ -81,6 +81,13 @@ public class ConceptoService implements IConceptoService {
 		return conceptosDto;
 	}
 	
-	// TODO Concepto Aleatorio Método
+	@Override
+	public ConceptoDTO traerConceptoAleatorio() {
+		int max = (int) conceptoRepo.count();
+		Long idAleatorio = (long) (Math.random()*max+1);
+		ConceptoDTO concepto = this.traerUno(idAleatorio);
+		return concepto;
+	}
+	
 
 }

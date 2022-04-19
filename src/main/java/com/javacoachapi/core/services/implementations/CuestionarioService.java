@@ -23,8 +23,6 @@ import com.javacoachapi.core.repository.ICapituloRepository;
 import com.javacoachapi.core.repository.IConceptoRepository;
 import com.javacoachapi.core.repository.IPreguntaRepository;
 import com.javacoachapi.core.repository.IRespuestaRepository;
-import com.javacoachapi.core.services.ICapituloService;
-import com.javacoachapi.core.services.IConceptoService;
 import com.javacoachapi.core.services.ICuestionarioService;
 
 @Service
@@ -40,11 +38,7 @@ public class CuestionarioService implements ICuestionarioService {
 	@Autowired
 	IConceptoRepository conceptoRepo;
 	@Autowired
-	IConceptoService conceptoServ;
-	@Autowired
 	ICapituloRepository capituloRepo;
-	@Autowired
-	ICapituloService capituloServ;
 
 	@Override
 	public List<PreguntaDTO> traerPreguntasPorConcepto(Long conceptoId) {
@@ -94,7 +88,9 @@ public class CuestionarioService implements ICuestionarioService {
 	public CuestionarioDTO crearCuestionarioConcepto(Long idConcepto) {
 		CuestionarioDTO cuestionario = new CuestionarioDTO();
 		cuestionario.setId(idConcepto);
-		cuestionario.setNombre(conceptoServ.traerUno(idConcepto).getNombre());
+		cuestionario.setNombre(conceptoRepo.findById(idConcepto)
+				.orElseThrow(() -> new DataNotFoundException(idConcepto))
+				.getNombre());
 		cuestionario.setPreguntas(this.traerPreguntasPorConcepto(idConcepto));
 		return cuestionario;
 	}
@@ -104,7 +100,9 @@ public class CuestionarioService implements ICuestionarioService {
 	public CuestionarioDTO crearCuestionarioCapitulo(Long idCapitulo) {
 		CuestionarioDTO cuestionario = new CuestionarioDTO();
 		cuestionario.setId(idCapitulo);
-		cuestionario.setNombre(capituloServ.traerUno(idCapitulo).getNombre());
+		cuestionario.setNombre(capituloRepo.findById(idCapitulo)
+				.orElseThrow(()-> new DataNotFoundException(idCapitulo))
+				.getNombre());
 		cuestionario.setPreguntas(this.traerPreguntasPorCapitulo(idCapitulo));
 		return cuestionario;
 	}

@@ -53,5 +53,11 @@ public class ConceptosController implements IConceptosController{
 	public ResponseEntity<?> actualizarConcepto(@RequestBody ConceptoCrearDTO conceptoActualizado, @PathVariable Long id) {
 		return ResponseEntity.ok().body(conceptoServ.actualizar(conceptoActualizado, id));
 	}
+	
+	@Override
+	@GetMapping("/aleatorio")
+	public ResponseEntity<?> traerAleatorio() {
+		return ResponseEntity.ok().body(conceptoServ.traerConceptoAleatorio());
+	}
 
 }

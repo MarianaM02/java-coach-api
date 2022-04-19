@@ -12,6 +12,6 @@ public class CatalogoDTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private List<CapituloDTO> capitulos;
+	private List<CatalogoCapituloDTO> capitulos;
 
 }

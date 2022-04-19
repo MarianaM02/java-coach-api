@@ -45,4 +45,6 @@ public interface IConceptosController {
 	 * @return concepto actualizado
 	 */
 	ResponseEntity<?> actualizarConcepto(ConceptoCrearDTO conceptoActualizado, Long id);
+
+	ResponseEntity<?> traerAleatorio();
 }
