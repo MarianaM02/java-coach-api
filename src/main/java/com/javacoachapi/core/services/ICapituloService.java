@@ -17,4 +17,6 @@ public interface ICapituloService {
 	
 	CapituloDTO actualizar(CapituloCrearDTO capituloActualizado, Long id);
 
+	boolean borrarPorNivel(Long id);
+
 }

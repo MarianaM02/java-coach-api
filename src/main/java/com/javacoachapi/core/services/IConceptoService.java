@@ -20,5 +20,7 @@ public interface IConceptoService {
 	List<ConceptoDTO> traerConceptosPorCapitulo(Long capituloId);
 
 	ConceptoDTO traerConceptoAleatorio();
+
+	boolean borrarPorCapitulo(Long id);
 	
 }

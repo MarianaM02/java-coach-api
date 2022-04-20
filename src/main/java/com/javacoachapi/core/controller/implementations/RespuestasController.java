@@ -1,5 +1,7 @@
 package com.javacoachapi.core.controller.implementations;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,31 +21,36 @@ import com.javacoachapi.core.services.IRespuestaService;
 @RestController
 @RequestMapping("/respuesta")
 public class RespuestasController implements IRespuestasController {
-
+	private static final Logger LOGGER=LoggerFactory.getLogger(RespuestasController.class);
+			
 	@Autowired
 	IRespuestaService respuestaServ;
 
 	@Override
 	@GetMapping("/todos")
 	public ResponseEntity<?> traerRespuestas() {
+		LOGGER.info("Acceso al endpoint \"/respuesta/todos\"");
 		return ResponseEntity.ok().body(respuestaServ.traerTodos());
 	}
 
 	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<?> traerRespuesta(@PathVariable Long id) {
+		LOGGER.info("Acceso al endpoint \"/respuesta/{}\"", id);
 		return ResponseEntity.ok().body(respuestaServ.traerUno(id));
 	}
 
 	@Override
 	@PostMapping("/crear")
 	public ResponseEntity<?> crearRespuesta(@RequestBody RespuestaCrearDTO respuestaNueva) {
+		LOGGER.info("Acceso al endpoint \"/respuesta/crear\"");
 		return ResponseEntity.status(HttpStatus.CREATED).body(respuestaServ.crear(respuestaNueva));
 	}
 
 	@Override
 	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> eliminarRespuesta(@PathVariable Long id) {
+		LOGGER.info("Acceso al endpoint \"/respuesta/eliminar/{}\"", id);
 		respuestaServ.eliminar(id);
 		return ResponseEntity.noContent().build();
 	}
@@ -51,6 +58,7 @@ public class RespuestasController implements IRespuestasController {
 	@Override
 	@PutMapping("/actualizar/{id}")
 	public ResponseEntity<?> actualizarRespuesta(@RequestBody RespuestaCrearDTO respuestaActualizada, @PathVariable Long id) {
+		LOGGER.info("Acceso al endpoint \"/respuesta/actualizar/{}\"", id);
 		return ResponseEntity.ok().body(respuestaServ.actualizar(respuestaActualizada, id));
 	}
 

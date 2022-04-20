@@ -10,6 +10,8 @@ import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -38,7 +40,8 @@ import com.javacoachapi.core.services.IUtilidadesService;
 
 @Service
 public class UtilidadesService implements IUtilidadesService {
-
+	private static final Logger LOGGER=LoggerFactory.getLogger(UtilidadesService.class);
+	
 	@Autowired
 	ICapituloRepository capituloRepo;
 	@Autowired
@@ -50,15 +53,17 @@ public class UtilidadesService implements IUtilidadesService {
 
 	@Override
 	public CatalogoDTO traerCatalogoDTO() {
+		LOGGER.info("Trayendo catálogo completo...");
 		CatalogoDTO catalogo = new CatalogoDTO();
 		catalogo.setCapitulos(
 				capituloRepo.findAll().stream().map(catCapituloDtoConverter::convertir).collect(Collectors.toList()));
+		LOGGER.info("Catálogo Obtenido.");
 		return catalogo;
 	}
 
 	@Override
 	public void crearPDF(String mail) throws IOException {
-
+		LOGGER.info("Creando Reporte PDF...");
 		String rutaBanner = "./src/main/resources/static/Java Coach API Reporte Banner.png";
 		String rutaArchivo = "ReporteJCA.pdf";
 
@@ -107,12 +112,13 @@ public class UtilidadesService implements IUtilidadesService {
 
 		// Close document
 		document.close();
-
+		LOGGER.info("Creación de Reporte exitosa.");
 	}
 
 	
 	@Override
 	public void mandarMailConJavaMailSender(FormMailRequest form) throws IOException, MailException {
+		LOGGER.info("Creando Email...");
 		ConceptoDTO concepto = conceptoServ.traerConceptoAleatorio();
 		
 		String to = form.getMail();
@@ -141,9 +147,11 @@ public class UtilidadesService implements IUtilidadesService {
                 mimeMessage.setText(template, "UTF-8", "html");
             }
         };
+        LOGGER.info("Email creado.");
         
+        LOGGER.info("Enviando Email...");
         this.emailSender.send(preparator);
-		
+        LOGGER.info("Email enviado exitosamente.");
 	}
 
 	private String htmlToString(String ruta) throws FileNotFoundException {

@@ -8,6 +8,8 @@ public class JavaCoachApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JavaCoachApiApplication.class, args);
+	
+		
 	}
 
 }

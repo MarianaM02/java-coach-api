@@ -1,5 +1,7 @@
 package com.javacoachapi.core.controller.implementations;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import com.javacoachapi.core.services.IConceptoService;
 @RestController
 @RequestMapping("/concepto")
 public class ConceptosController implements IConceptosController{
+	private static final Logger LOGGER=LoggerFactory.getLogger(ConceptosController.class);
 
 	@Autowired
 	IConceptoService conceptoServ;
@@ -26,24 +29,28 @@ public class ConceptosController implements IConceptosController{
 	@Override
 	@GetMapping("/todos")
 	public ResponseEntity<?> traerConceptos() {
+		LOGGER.info("Acceso al endpoint \"/concepto/todos\"");
 		return ResponseEntity.ok().body(conceptoServ.traerTodos());
 	}
 
 	@Override
 	@GetMapping("/{id}")
 	public ResponseEntity<?> traerConcepto(@PathVariable Long id) {
+		LOGGER.info("Acceso al endpoint \"/concepto/{}\"", id);
 		return ResponseEntity.ok().body(conceptoServ.traerUno(id));
 	}
 
 	@Override
 	@PostMapping("/crear")
 	public ResponseEntity<?> crearConcepto(@RequestBody ConceptoCrearDTO conceptoNuevo) {
+		LOGGER.info("Acceso al endpoint \"/concepto/crear\"");
 		return ResponseEntity.status(HttpStatus.CREATED).body(conceptoServ.crear(conceptoNuevo));
 	}
 
 	@Override
 	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> eliminarConcepto(@PathVariable Long id) {
+		LOGGER.info("Acceso al endpoint \"/concepto/eliminar/{}\"", id);
 		conceptoServ.eliminar(id);
 		return ResponseEntity.noContent().build();
 	}
@@ -51,12 +58,14 @@ public class ConceptosController implements IConceptosController{
 	@Override
 	@PutMapping("/actualizar/{id}")
 	public ResponseEntity<?> actualizarConcepto(@RequestBody ConceptoCrearDTO conceptoActualizado, @PathVariable Long id) {
+		LOGGER.info("Acceso al endpoint \"/concepto/actualizar/{}\"", id);
 		return ResponseEntity.ok().body(conceptoServ.actualizar(conceptoActualizado, id));
 	}
 	
 	@Override
 	@GetMapping("/aleatorio")
 	public ResponseEntity<?> traerAleatorio() {
+		LOGGER.info("Acceso al endpoint \"/concepto/aleatorio\"");
 		return ResponseEntity.ok().body(conceptoServ.traerConceptoAleatorio());
 	}
 

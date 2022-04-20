@@ -17,4 +17,6 @@ public interface IPreguntaService {
 	
 	PreguntaDTO actualizar(PreguntaCrearDTO preguntaActualizada, Long id);
 
+	boolean borrarPorConcepto(Long id);
+
 }
