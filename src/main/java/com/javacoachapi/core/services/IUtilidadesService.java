@@ -7,7 +7,7 @@ import com.javacoachapi.core.models.dto.mail.FormMailRequest;
 
 public interface IUtilidadesService {
 
-	void crearPDF(String mail) throws IOException;
+	void crearPDF() throws IOException;
 	
 	void mandarMailConJavaMailSender(FormMailRequest form) throws IOException;
 

@@ -62,7 +62,7 @@ public class UtilidadesService implements IUtilidadesService {
 	}
 
 	@Override
-	public void crearPDF(String mail) throws IOException {
+	public void crearPDF() throws IOException {
 		LOGGER.info("Creando Reporte PDF...");
 		String rutaBanner = "./src/main/resources/static/Java Coach API Reporte Banner.png";
 		String rutaArchivo = "ReporteJCA.pdf";
