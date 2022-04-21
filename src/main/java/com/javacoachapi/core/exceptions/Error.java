@@ -22,6 +22,6 @@ public class Error {
 	@JsonFormat(shape = Shape.STRING, pattern = "dd/MM/yyyyy hh:mm:ss")
 	private LocalDateTime timestamp = LocalDateTime.now();
 	@NonNull
-	private String mensaje;
+	private Object mensajes;
 	
 }

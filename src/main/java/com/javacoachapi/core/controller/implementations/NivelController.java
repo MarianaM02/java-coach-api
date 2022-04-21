@@ -1,5 +1,7 @@
 package com.javacoachapi.core.controller.implementations;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,7 @@ public class NivelController implements INivelController {
 	
 	@Override
 	@PostMapping("/crear")
-	public ResponseEntity<?> crearNivel(@RequestBody NivelDTO nivelNuevo) {
+	public ResponseEntity<?> crearNivel(@Valid @RequestBody NivelDTO nivelNuevo) {
 		LOGGER.info("Acceso al endpoint \"/nivel/crear\"");
 		return ResponseEntity.status(HttpStatus.CREATED).body(nivelServ.crear(nivelNuevo));
 	}
@@ -57,7 +59,7 @@ public class NivelController implements INivelController {
 	
 	@Override
 	@PutMapping("/actualizar/{id}")
-	public ResponseEntity<?> actualizarNivel(@RequestBody NivelDTO nivelActualizado, @PathVariable Long id) throws Exception {
+	public ResponseEntity<?> actualizarNivel(@Valid @RequestBody NivelDTO nivelActualizado, @PathVariable Long id) throws Exception {
 		LOGGER.info("Acceso al endpoint \"/nivel/actualizar/{}\"", id);
 		return ResponseEntity.ok().body(nivelServ.actualizar(nivelActualizado, id));
 	}

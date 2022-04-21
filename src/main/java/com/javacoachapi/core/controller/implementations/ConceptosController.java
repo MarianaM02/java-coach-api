@@ -1,5 +1,7 @@
 package com.javacoachapi.core.controller.implementations;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,7 @@ public class ConceptosController implements IConceptosController{
 
 	@Override
 	@PostMapping("/crear")
-	public ResponseEntity<?> crearConcepto(@RequestBody ConceptoCrearDTO conceptoNuevo) {
+	public ResponseEntity<?> crearConcepto(@Valid @RequestBody ConceptoCrearDTO conceptoNuevo) {
 		LOGGER.info("Acceso al endpoint \"/concepto/crear\"");
 		return ResponseEntity.status(HttpStatus.CREATED).body(conceptoServ.crear(conceptoNuevo));
 	}
@@ -57,7 +59,7 @@ public class ConceptosController implements IConceptosController{
 
 	@Override
 	@PutMapping("/actualizar/{id}")
-	public ResponseEntity<?> actualizarConcepto(@RequestBody ConceptoCrearDTO conceptoActualizado, @PathVariable Long id) {
+	public ResponseEntity<?> actualizarConcepto(@Valid @RequestBody ConceptoCrearDTO conceptoActualizado, @PathVariable Long id) {
 		LOGGER.info("Acceso al endpoint \"/concepto/actualizar/{}\"", id);
 		return ResponseEntity.ok().body(conceptoServ.actualizar(conceptoActualizado, id));
 	}

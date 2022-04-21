@@ -1,5 +1,7 @@
 package com.javacoachapi.core.controller.implementations;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,7 @@ public class CapitulosController implements ICapitulosController{
 
 	@Override
 	@PostMapping("/crear")
-	public ResponseEntity<?> crearCapitulo(@RequestBody CapituloCrearDTO capituloNuevo) {
+	public ResponseEntity<?> crearCapitulo(@Valid @RequestBody CapituloCrearDTO capituloNuevo) {
 		LOGGER.info("Acceso al endpoint \"/capitulo/crear\"");
 		return ResponseEntity.status(HttpStatus.CREATED).body(capituloServ.crear(capituloNuevo));
 	}
@@ -57,7 +59,7 @@ public class CapitulosController implements ICapitulosController{
 	
 	@Override
 	@PutMapping("/actualizar/{id}")
-	public ResponseEntity<?> actualizarCapitulo(@RequestBody CapituloCrearDTO capituloActualizado, @PathVariable Long id) {
+	public ResponseEntity<?> actualizarCapitulo(@Valid @RequestBody CapituloCrearDTO capituloActualizado, @PathVariable Long id) {
 		LOGGER.info("Acceso al endpoint \"/capitulo/actualizar/{}\"", id);
 		return ResponseEntity.ok().body(capituloServ.actualizar(capituloActualizado, id));
 	}
