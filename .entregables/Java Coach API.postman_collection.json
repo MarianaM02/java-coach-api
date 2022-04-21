@@ -1,0 +1,726 @@
+{
+	"info": {
+		"_postman_id": "048e448f-f3e6-4358-a02f-ea2703a272e3",
+		"name": "Java Coach API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Utilidades",
+			"item": [
+				{
+					"name": "Concepto Aleatorio por Mail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombre\":\"Namish\",\n\t\"mail\":\"namira.r.m@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/enviar/concepto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"enviar",
+								"concepto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Catalogo Completo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/catalogo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"catalogo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generar Reporte",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/generar/reporte",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"generar",
+								"reporte"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cuestionario",
+			"item": [
+				{
+					"name": "Cuestionario por Capitulo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cuestionario/capitulo/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cuestionario",
+								"capitulo",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cuestionario por Concepto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cuestionario/concepto/49",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cuestionario",
+								"concepto",
+								"49"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validar Respuesta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cuestionario/validar/2/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cuestionario",
+								"validar",
+								"2",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Nivel",
+			"item": [
+				{
+					"name": "Todos Niveles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/nivel/todos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nivel",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Un Nivel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/nivel/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nivel",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Nivel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombre\": \"Imposible\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/nivel/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nivel",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Nivel",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 4,\n\t\"nombre\": \"Extremo\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/nivel/actualizar/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nivel",
+								"actualizar",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Nivel",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/nivel/eliminar/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nivel",
+								"eliminar",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Capitulo",
+			"item": [
+				{
+					"name": "Todos Capitulos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/capitulo/todos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"capitulo",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Un Capitulo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/capitulo/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"capitulo",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Capitulo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"numero\": 7,\n\t\"nombre\": \"Spring\",\n\t\"nivelId\": 3\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/capitulo/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"capitulo",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Capitulo",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 7,\n\t\"numero\": 28,\n\t\"nombre\": \"Spring Boot\",\n\t\"nivelId\": 3\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/capitulo/actualizar/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"capitulo",
+								"actualizar",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Capitulo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/capitulo/eliminar/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"capitulo",
+								"eliminar",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Concepto",
+			"item": [
+				{
+					"name": "Todos Conceptos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/concepto/todos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"concepto",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Un Concepto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/concepto/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"concepto",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Traer Aleatorio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/concepto/aleatorio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"concepto",
+								"aleatorio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Concepto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nombre\":\"Reconociendo tipos comunes de excepciones\",\n\t\"contenido\":\"Los tipos más comunes de excepciones son: excepciones en ejecución (Runtime Exceptions), excepciones comprobadas (Checked Exceptions) y errores (Errors).\\n\\n**Runtime Exceptions:**\\nSon excepciones lanzadas en tiempo de ejecución. Dentro de ella se encuetran:\\n- **ArithmeticException:** Lanzado por la JVM cuando hay un error de cálculo matemático.\\n- **ArrayIndexOutOfBoundsException:** Lanzado por la JVM cuando se usa un índice ilegal para acceder a un array.\\n- **ClassCastException:**  Lanzado por la JVM cuando hay un error de casteo/refundición.\\n- **NullPointerException:** Lanzado por la JVM cuando hay una referencia nula donde un objeto es requerido.\\n- **IllegalArgumentException:** Lanzado por el programador para indicar que se le ha pasado un argumento ilegal o inapropiado un método.\\n- **NumberFormatException:** Lanzado por el programador cuando se ha hecho un intento para convertir un string a un tipo numérico pero este no tiene el formato apropiado.\\n\\n**Checked Exceptions:**\\nTienen `Exception` en su jerarquía pero no `RuntimeException`. Deben ser manejadas o declaradas. Pueden ser lanzadas por el programador o la JVM. Éstas incluyen:\\n\\n- **FileNotFoundException:** Lanzada programáticamente cuando el código trata de referenciar un archivo que no existe. es una subclase de `IOException`.\\n- **IOException:** Lanzada programáticamente cuando hay un problema al leer o escribir un archivo.\\n\\n**Errors:**Los errores extienden de la clase `Error`. Son lanzados por la JVM y no deberían ser manejados o declarados. Los errores son poco comunes pero hay que reconocer los siguientes:\\n- **ExceptionInInitializerError** Lanzado por la JVM cuando un inicializador estático lanza una excepción y no la maneja.\\n- **StackOverflowError** Lanzado por la JVM cuando un método se llama a si mismo demasiadas veces (recursión infinita).\\n- **NoClassDefFoundError** Lanzado por la JVM cuando una clase que el código usa estuvo disponible en compilación pero no en ejecución.\",\n\t\"capituloId\":6\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/concepto/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"concepto",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Concepto",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 3,\n\t\"nombre\":\"Cambio de nombre\",\n\t\"contenido\":\"Descripcion del concepto\",\n\t\"capituloId\":5\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/concepto/actualizar/49",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"concepto",
+								"actualizar",
+								"49"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Concepto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/concepto/eliminar/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"concepto",
+								"eliminar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pregunta",
+			"item": [
+				{
+					"name": "Todas Preguntas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pregunta/todos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pregunta",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Una Pregunta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pregunta/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pregunta",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Pregunta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"pregunta\": \"IllegalArgumentException se lanza cuando...\",\n\t\"conceptoId\": 49,\n\t\"respuestas\": [\n\t\t{\n\t\t\t\"respuesta\": \"... se le ha pasado un argumento no válido o inapropiado un método.\",\n\t\t\t\"valida\": true\n\t\t},\n\t\t{\n\t\t\t\"respuesta\": \"... se usa un índice ilegal para acceder a un array.\",\n\t\t\t\"valida\": false\n\t\t},\n\t\t{\n\t\t\t\"respuesta\": \"... se ha hecho un intento para convertir un string a un tipo numérico pero este no tiene el formato apropiado.\",\n\t\t\t\"valida\": false\n\t\t},\n\t\t{\n\t\t\t\"respuesta\": \"... hay una referencia nula donde un objeto es requerido.\",\n\t\t\t\"valida\": false\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/pregunta/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pregunta",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Pregunta",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 28,\n\t\"pregunta\": \"¿Qué es eso?\",\n\t\"conceptoId\": 2,\n\t\"respuestas\": [\n\t\t{\n\t\t\t\"id\": 104,\n\t\t\t\"respuesta\": \"queti\",\n\t\t\t\"valida\": false\n\t\t},\n\t\t{\n\t\t\t\"id\": 106,\n\t\t\t\"respuesta\": \"Queso\",\n\t\t\t\"valida\": false\n\t\t},\n\t\t{\n\t\t\t\"id\": 107,\n\t\t\t\"respuesta\": \"Otra más\",\n\t\t\t\"valida\": false\n\t\t},\n\t\t{\n\t\t\t\"id\": 108,\n\t\t\t\"respuesta\": \"Otra másss\",\n\t\t\t\"valida\": true\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/pregunta/actualizar/28",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pregunta",
+								"actualizar",
+								"28"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Pregunta",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pregunta/eliminar/20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pregunta",
+								"eliminar",
+								"20"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Respuesta",
+			"item": [
+				{
+					"name": "Todas Respuestas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/respuesta/todos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"respuesta",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Una Respuesta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/respuesta/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"respuesta",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
