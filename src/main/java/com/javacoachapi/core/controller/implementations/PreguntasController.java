@@ -1,5 +1,7 @@
 package com.javacoachapi.core.controller.implementations;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,7 @@ public class PreguntasController implements IPreguntasController {
 
 	@Override
 	@PostMapping("/crear")
-	public ResponseEntity<?> crearPregunta(@RequestBody PreguntaCrearDTO preguntaNueva) {
+	public ResponseEntity<?> crearPregunta(@Valid @RequestBody PreguntaCrearDTO preguntaNueva) {
 		LOGGER.info("Acceso al endpoint \"/pregunta/crear\"");
 		return ResponseEntity.status(HttpStatus.CREATED).body(preguntaServ.crear(preguntaNueva));
 	}
@@ -57,7 +59,7 @@ public class PreguntasController implements IPreguntasController {
 
 	@Override
 	@PutMapping("/actualizar/{id}")
-	public ResponseEntity<?> actualizarPregunta(@RequestBody PreguntaCrearDTO preguntaActualizada, @PathVariable Long id) {
+	public ResponseEntity<?> actualizarPregunta(@Valid @RequestBody PreguntaCrearDTO preguntaActualizada, @PathVariable Long id) {
 		LOGGER.info("Acceso al endpoint \"/pregunta/actualizar/{}\"", id);
 		return ResponseEntity.ok().body(preguntaServ.actualizar(preguntaActualizada, id));
 	}

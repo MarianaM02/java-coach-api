@@ -2,6 +2,8 @@ package com.javacoachapi.core.controller.implementations;
 
 import java.io.IOException;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,7 @@ public class UtilidadesController implements IUtilidadesController{
 	 */
 	@Override
 	@GetMapping("/enviar/concepto")
-	public ResponseEntity<?> enviarConceptoAleatorioMail(@RequestBody FormMailRequest form) throws IOException {
+	public ResponseEntity<?> enviarConceptoAleatorioMail(@Valid @RequestBody FormMailRequest form) throws IOException {
 		LOGGER.info("Acceso al endpoint \"/enviar/concepto\"");
 		utilServ.mandarMailConJavaMailSender(form);
 		return ResponseEntity.accepted().build();
