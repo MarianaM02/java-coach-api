@@ -275,6 +275,79 @@ INSERT INTO java_coach_api.pregunta_respuestas (pregunta_id,respuestas_id) VALUE
 	 (25,77),
 	 (25,78),
 	 (25,79);
+	
+-- Cap 6: Exceptions --
+	
+INSERT INTO java_coach_api.concepto (contenido, nombre, capitulo_id) VALUES('Los tipos más comunes de excepciones son: excepciones en ejecución (Runtime Exceptions), excepciones comprobadas (Checked Exceptions) y errores (Errors).
+
+**Runtime Exceptions:**
+Son excepciones lanzadas en tiempo de ejecución. Dentro de ella se encuetran:
+- **ArithmeticException:** Lanzado por la JVM cuando hay un error de cálculo matemático.
+- **ArrayIndexOutOfBoundsException:** Lanzado por la JVM cuando se usa un índice ilegal para acceder a un array.
+- **ClassCastException:**  Lanzado por la JVM cuando hay un error de casteo/refundición.
+- **NullPointerException:** Lanzado por la JVM cuando hay una referencia nula donde un objeto es requerido.
+- **IllegalArgumentException:** Lanzado por el programador para indicar que se le ha pasado un argumento ilegal o inapropiado un método.
+- **NumberFormatException:** Lanzado por el programador cuando se ha hecho un intento para convertir un string a un tipo numérico pero este no tiene el formato apropiado.
+
+**Checked Exceptions:**
+Tienen `Exception` en su jerarquía pero no `RuntimeException`. Deben ser manejadas o declaradas. Pueden ser lanzadas por el programador o la JVM. Éstas incluyen:
+
+- **FileNotFoundException:** Lanzada programáticamente cuando el código trata de referenciar un archivo que no existe. es una subclase de `IOException`.
+- **IOException:** Lanzada programáticamente cuando hay un problema al leer o escribir un archivo.
+
+**Errors:**Los errores extienden de la clase `Error`. Son lanzados por la JVM y no deberían ser manejados o declarados. Los errores son poco comunes pero hay que reconocer los siguientes:
+- **ExceptionInInitializerError** Lanzado por la JVM cuando un inicializador estático lanza una excepción y no la maneja.
+- **StackOverflowError** Lanzado por la JVM cuando un método se llama a si mismo demasiadas veces (recursión infinita).
+- **NoClassDefFoundError** Lanzado por la JVM cuando una clase que el código usa estuvo disponible en compilación pero no en ejecución.', 'Reconociendo tipos comunes de excepciones', 6);
+
+
+INSERT INTO java_coach_api.pregunta (pregunta,concepto_id) VALUES
+	 ('¿Cuál de las siguientes excepciones es una RuntimeException?',49),
+	 ('Los errores deben ser declarados y manejados apropiadamente por el programador',49),
+	 ('¿Cuándo se lanza ClassCastException?',49),
+	 ('Si se ejecuta int answer = 11 / 0; ¿Qué excepción se mostraría por consola?',49),
+	 ('IllegalArgumentException se lanza cuando...',49);
+	
+INSERT INTO java_coach_api.respuesta (respuesta,valida) VALUES
+	 ('IOException',0),
+	 ('NoClassDefFoundError',0),
+	 ('NullPointerException',1),
+	 ('Verdadero',0),
+	 ('Falso',1),
+	 ('Lanzada programáticamente cuando hay un problema al leer o escribir un archivo. ',0),
+	 ('Lanzada por la JVM cuando hay un error de casteo/refundición.',1),
+	 ('Lanzada por la JVM cuando una clase que el código usa estuvo disponible en compilación pero no en ejecución.',0),
+	 ('ExceptionInInitializerError',0),
+	 ('IllegalArgumentException',0);
+INSERT INTO java_coach_api.respuesta (respuesta,valida) VALUES
+	 ('ArithmeticException',1),
+	 ('NumberFormatException',0),
+	 ('ArrayIndexOutOfBoundsException',0),
+	 ('... se le ha pasado un argumento no válido o inapropiado un método.',1),
+	 ('... se usa un índice ilegal para acceder a un array.',0),
+	 ('... se ha hecho un intento para convertir un string a un tipo numérico pero este no tiene el formato apropiado.',0),
+	 ('... hay una referencia nula donde un objeto es requerido.',0);
+	
+INSERT INTO java_coach_api.pregunta_respuestas (pregunta_id,respuestas_id) VALUES
+	 (26,80),
+	 (26,81),
+	 (26,82),
+	 (27,83),
+	 (27,84),
+	 (28,85),
+	 (28,86),
+	 (28,87),
+	 (29,88),
+	 (29,89);
+INSERT INTO java_coach_api.pregunta_respuestas (pregunta_id,respuestas_id) VALUES
+	 (29,90),
+	 (29,91),
+	 (29,92),
+	 (30,93),
+	 (30,94),
+	 (30,95),
+	 (30,96);
+	 
 	 
  -- EJEMPLOS --
  
